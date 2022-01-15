@@ -1,0 +1,100 @@
+/* @font-face {
+  font-family: 'CountryWesternItalic';
+  src: url('./fonts/countrywestern.eot');
+  src: local('☺'),
+    url('./fonts/countrywestern.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/countrywestern.woff2') format('woff2'),
+    url('./fonts/countrywestern.woff') format('woff'),
+    url('./fonts/countrywestern.ttf') format('truetype');
+  font-display: swap;
+}
+
+
+*/
+@font-face {
+  font-family: 'Couturier';
+  src: url('fonts/couturier.eot');
+  src: local('☺'), url('fonts/couturier.woff') format('woff'),
+    url('fonts/couturier.ttf') format('truetype'),
+    url('fonts/couturier.svg') format('svg');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rosewood';
+  src: local('☺'), url('fonts/RosewoodStd-Regular.woff2') format('woff2'),
+    url('fonts/RosewoodStd-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  background: white;
+  color: black;
+  font-family: 'Remark Regular';
+  font-variant-ligatures: none;
+  margin: 0;
+}
+
+header {
+  padding: 32px;
+}
+
+nav ul {
+  text-align: right;
+  font-size: 16px;
+  list-style: none;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline;
+  margin: 0 20px;
+  padding: 0;
+  text-transform: lowercase;
+}
+
+h1 {
+  font-family: 'Rosewood';
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 72px;
+  line-height: 0.8em;
+  margin: 0;
+}
+
+h2 {
+  text-transform: lowercase;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: right;
+  padding: 32px 0 0;
+  font-weight: 300;
+}
+
+.masonry {
+  column-count: 1;
+  column-gap: 1em;
+  padding: 1em;
+}
+.brick {
+  background-color: #eee;
+  display: inline-block;
+  margin: 0.3em 0;
+}
+
+.brick img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 767px) and (min-width: 540px) {
+  .masonry {
+    column-count: 2;
+  }
+}
