@@ -88,12 +88,26 @@
     </main>
     <script src="https://s.electerious.com/basicLightbox/dist/basicLightbox.min.js"></script>
     <script type="text/javascript">
-      ;[...document.getElementsByClassName('brick')].forEach((el) => {
-        el.addEventListener('click', () => {
-          console.log(el.children[0], `<img src="${el.children[0].src}">`)
-          basicLightbox.create(`<img src="${el.children[0].src}">`).show()
-        })
-      })
+      [...document.getElementsByClassName("brick")].forEach((el) => {
+        el.addEventListener("click", () => {
+          console.log(el.children[0], `<img src="${el.children[0].src}">`);
+          basicLightbox.create(`<img src="${el.children[0].src}">`).show();
+        });
+      });
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-YNPGC2NXVY"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-YNPGC2NXVY");
     </script>
   </body>
 </html>
