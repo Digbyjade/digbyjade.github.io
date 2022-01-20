@@ -12,36 +12,42 @@
 
 */
 @font-face {
-  font-family: 'Couturier';
-  src: url('fonts/couturier.eot');
-  src: local('☺'), url('fonts/couturier.woff') format('woff'),
-    url('fonts/couturier.ttf') format('truetype'),
-    url('fonts/couturier.svg') format('svg');
+  font-family: "Couturier";
+  src: url("fonts/couturier.eot");
+  src: local("☺"), url("fonts/couturier.woff") format("woff"),
+    url("fonts/couturier.ttf") format("truetype"),
+    url("fonts/couturier.svg") format("svg");
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Rosewood';
-  src: local('☺'), url('fonts/RosewoodStd-Regular.woff2') format('woff2'),
-    url('fonts/RosewoodStd-Regular.woff') format('woff');
+  font-family: "Rosewood";
+  src: local("☺"), url("fonts/RosewoodStd-Regular.woff2") format("woff2"),
+    url("fonts/RosewoodStd-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   background: white;
   color: black;
-  font-family: 'Remark Regular';
+  font-family: "Remark Regular";
   font-variant-ligatures: none;
-  margin: 0;
+  margin: 0 0 16px;
 }
 
 header {
   padding: 32px;
 }
 
-nav ul {
+nav ul,
+.dropdown-btn {
   text-align: right;
   font-size: 16px;
   list-style: none;
@@ -57,13 +63,46 @@ nav li {
   text-transform: lowercase;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  text-transform: lowercase;
+  background: none;
+  border: none;
+  font-family: "Remark Regular";
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.dropdown:hover #dropdown-menu {
+  display: block;
+}
+
+#dropdown-menu {
+  text-align: left;
+  min-width: 150px;
+  display: none;
+  position: absolute;
+}
+
 h1 {
-  font-family: 'Rosewood';
+  font-family: "Rosewood";
   text-transform: uppercase;
   font-weight: normal;
   font-size: 72px;
   line-height: 0.8em;
   margin: 0;
+}
+h1 a {
+  color: black;
+  text-decoration: none;
+}
+
+h1 a:hover {
+  text-decoration: underline;
 }
 
 h2 {
@@ -72,6 +111,15 @@ h2 {
   color: rgba(0, 0, 0, 0.5);
   text-align: right;
   padding: 32px 0 0;
+  font-weight: 300;
+}
+
+h3 {
+  text-transform: lowercase;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.726);
+  text-align: left;
+  padding: 32px;
   font-weight: 300;
 }
 
@@ -93,8 +141,35 @@ h2 {
   cursor: pointer;
 }
 
+.brick .title {
+  text-align: left;
+  padding: 8px;
+}
+
 @media only screen and (min-width: 767px) and (min-width: 540px) {
   .masonry {
     column-count: 2;
   }
+}
+
+.pageContent {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 16px;
+  font-size: 12px;
+  color: white;
+  background: black;
+  padding: 2px 16px;
+  text-align: right;
+}
+footer a {
+  color: white;
 }
