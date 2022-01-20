@@ -153,9 +153,11 @@ h3 {
 }
 
 .pageContent {
-  max-width: 600px;
-  margin: 0 auto;
   padding: 32px;
+}
+.pageContent p {
+  margin: 0 auto;
+  max-width: 600px;
 }
 
 footer {
