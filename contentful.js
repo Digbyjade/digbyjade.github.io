@@ -75,7 +75,7 @@ const customRenderers = {
     },
     "embedded-asset-block": (node) => {
       try {
-        if (item.fields.file.contentType === "image/tiff") {
+        if (node.fields.file.contentType === "image/tiff") {
           throw new Error(
             `Tiff files don't work in the browser, failed to display ${item.fields.title}`
           );
