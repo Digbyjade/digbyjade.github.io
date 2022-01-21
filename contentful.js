@@ -67,18 +67,26 @@ const customRenderers = {
     "embedded-entry-block": (node) => {
       const type = node.data.target.sys.contentType.sys.id;
       if (type === "mediaGrid") {
-        console.log(node.data.target.fields.items);
         return `<div class="masonry">${node.data.target.fields.items
-          .map(
-            (item) => `<div class="brick embedded-asset-block">
+          .map((item) => {
+            try {
+              if (item.fields.file.contentType === "image/tiff") {
+                throw new Error(
+                  `Tiff files don't work in the browser, failed to display ${item.fields.title}`
+                );
+              }
+              return `<div class="brick embedded-asset-block">
         <img
           src="//${item.fields.file.url}"
           height="${item.fields.file.details.image.height}"
           width="${item.fields.file.details.image.width}"
           alt="${item.fields.description}"
         />
-      </div>`
-          )
+      </div>`;
+            } catch (err) {
+              return `<div class="brick">Problem encountered: ${err}</div>`;
+            }
+          })
           .join("\n")}</div>`;
       }
     },
