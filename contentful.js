@@ -90,15 +90,25 @@ const customRenderers = {
           .join("\n")}</div>`;
       }
     },
-    "embedded-asset-block": (node) =>
-      `<div class="brick embedded-asset-block">
+    "embedded-asset-block": (node) => {
+      try {
+        if (item.fields.file.contentType === "image/tiff") {
+          throw new Error(
+            `Tiff files don't work in the browser, failed to display ${item.fields.title}`
+          );
+        }
+        return `<div class="brick embedded-asset-block">
       <img
         src="//${node.data.target.fields.file.url}"
         height="${node.data.target.fields.file.details.image.height}"
         width="${node.data.target.fields.file.details.image.width}"
         alt="${node.data.target.fields.description}"
       />
-    </div>`,
+    </div>`;
+      } catch (err) {
+        return `<div class="brick">Problem encountered: ${err}</div>`;
+      }
+    },
   },
 };
 
