@@ -66,6 +66,7 @@ const customRenderers = {
         />
       </div>`;
             } catch (err) {
+              console.error(err);
               return `<div class="brick">Problem encountered: ${err}</div>`;
             }
           })
@@ -88,6 +89,7 @@ const customRenderers = {
       />
     </div>`;
       } catch (err) {
+        console.error(err);
         return `<div class="brick">Problem encountered: ${err}</div>`;
       }
     },
