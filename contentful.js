@@ -102,7 +102,7 @@ async function renderProjectsSection() {
     projects = items;
   }
   const grid = document.createElement("div");
-  grid.className = "masonry";
+  grid.className = "masonry pageContent";
   main.appendChild(grid);
   for (const project of projects) {
     const { title, coverphoto, urlFragment } = project.fields;
