@@ -5,27 +5,9 @@ const client = contentful.createClient({
 const main = document.getElementById("main");
 
 async function init() {
-  await Promise.all([buildProjectsDropdown(), buildPagesNav()]);
+  await buildPagesNav();
   window.addEventListener("hashchange", onHashChange, false);
   onHashChange();
-}
-
-let projectTypes = null;
-
-async function buildProjectsDropdown() {
-  if (!projectTypes) {
-    const { items } = await client.getEntries({
-      content_type: "projectType",
-    });
-    projectTypes = items;
-  }
-  const list = document.getElementById("dropdown-menu");
-  for (const projectType of projectTypes) {
-    const link = document.createElement("a");
-    link.href = `#projects---${projectType.sys.id}`;
-    link.innerText = projectType.fields.title;
-    list.appendChild(link);
-  }
 }
 
 let otherPages = null;
@@ -55,7 +37,7 @@ async function onHashChange() {
   } else if (section === "project") {
     await renderProject(data);
   } else if (section === "projects") {
-    await renderProjectsSection(data);
+    await renderProjectsSection();
   } else {
     await render404();
   }
@@ -112,14 +94,13 @@ const customRenderers = {
   },
 };
 
-async function renderProjectsSection(entryID) {
-  const { fields } = await client.getEntry(entryID);
-  const { title, projects } = fields;
-
-  const typeTitle = document.createElement("h3");
-  typeTitle.innerText = `projects: ${title}`;
-  main.appendChild(typeTitle);
-
+async function renderProjectsSection() {
+  if (!projects) {
+    const { items } = await client.getEntries({
+      content_type: "project",
+    });
+    projects = items;
+  }
   const grid = document.createElement("div");
   grid.className = "masonry";
   main.appendChild(grid);
@@ -149,7 +130,6 @@ async function renderPage(pageSlug) {
   const page = otherPages.find((page) => page.fields.urlFragment === pageSlug);
   if (page) {
     main.innerHTML = `
-    <h3>${page.fields.title}</h3>
     <div class="pageContent">${documentToHtmlString(
       page.fields.content,
       customRenderers
@@ -173,7 +153,6 @@ async function renderProject(projectSlug) {
   );
   if (project) {
     main.innerHTML = `
-    <h3>project: ${project.fields.title}</h3>
     <div class="pageContent">${documentToHtmlString(
       project.fields.content,
       customRenderers

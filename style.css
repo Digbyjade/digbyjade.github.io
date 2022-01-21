@@ -46,8 +46,7 @@ header {
   padding: 32px;
 }
 
-nav ul,
-.dropdown-btn {
+nav ul {
   text-align: right;
   font-size: 16px;
   list-style: none;
@@ -62,32 +61,6 @@ nav li {
   padding: 0;
   text-transform: lowercase;
 }
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-btn {
-  text-transform: lowercase;
-  background: none;
-  border: none;
-  font-family: "Remark Regular";
-  font-size: 16px;
-  text-decoration: underline;
-}
-
-.dropdown:hover #dropdown-menu {
-  display: block;
-}
-
-#dropdown-menu {
-  text-align: left;
-  min-width: 150px;
-  display: none;
-  position: absolute;
-}
-
 h1 {
   font-family: "Rosewood";
   text-transform: uppercase;
