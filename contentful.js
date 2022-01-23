@@ -50,51 +50,65 @@ const customRenderers = {
       const type = node.data.target.sys.contentType.sys.id;
       if (type === "mediaGrid") {
         return `<div class="masonry">${node.data.target.fields.items
-          .map((item) => {
-            try {
-              if (item.fields.file.contentType === "image/tiff") {
-                throw new Error(
-                  `Tiff files don't work in the browser, failed to display ${item.fields.title}`
-                );
-              }
-              return `<div class="brick embedded-asset-block">
-        <img
-          src="//${item.fields.file.url}"
-          height="${item.fields.file.details.image.height}"
-          width="${item.fields.file.details.image.width}"
-          alt="${item.fields.description}"
-        />
-      </div>`;
-            } catch (err) {
-              console.error(err);
-              return `<div class="brick">Problem encountered: ${err}</div>`;
-            }
-          })
+          .map((item) => renderImage(item.fields))
           .join("\n")}</div>`;
-      }
-    },
-    "embedded-asset-block": (node) => {
-      try {
-        if (node.data.target.fields.file.contentType === "image/tiff") {
-          throw new Error(
-            `Tiff files don't work in the browser, failed to display ${item.fields.title}`
-          );
+      } else if (type === "youtubeVideo") {
+        const url = node.data.target.fields.url;
+        console.log(url);
+        const slug = url.match(/[A-Za-z0-9_\-]*(?!.*[/?=])/)[0];
+        console.log("slug", slug);
+        if (!slug) {
+          return `<div class="brick">Error, invalid youtube link: ${url}</div>`;
         }
-        return `<div class="brick embedded-asset-block">
-      <img
-        src="//${node.data.target.fields.file.url}"
-        height="${node.data.target.fields.file.details.image.height}"
-        width="${node.data.target.fields.file.details.image.width}"
-        alt="${node.data.target.fields.description}"
-      />
-    </div>`;
-      } catch (err) {
-        console.error(err);
-        return `<div class="brick">Problem encountered: ${err}</div>`;
+        const uuid = `video${Math.floor(Math.random() * 1000000)}`;
+        const videoInfo = fetch(
+          `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${slug}&format=json`
+        )
+          .then((res) => res.json())
+          .then((info) => {
+            const aspect = info.height / info.width;
+            const ytVid = document.getElementById(uuid);
+            ytVid.style.paddingTop = `${aspect * 100}%`;
+          });
+        return `
+        <div
+          id="${uuid}"
+          style="position:relative;padding-top:56.25%;margin: 0 auto;"
+        >
+          <iframe
+            src="https://www.youtube.com/embed/${slug}"
+            frameborder="0"
+            allowfullscreen
+            style="position:absolute;top:0;left:0;width:100%;height:100%;"
+          />
+        </div>`;
       }
     },
+    "embedded-asset-block": (node) => renderImage(node.data.target.fields),
   },
 };
+
+function renderImage(fields) {
+  try {
+    if (fields.file.contentType === "image/tiff") {
+      throw new Error(
+        `Tiff files don't work in the browser, failed to display ${item.fields.title}`
+      );
+    }
+    return `
+    <div class="brick embedded-asset-block">
+      <img
+        src="//${fields.file.url}"
+        height="${fields.file.details.image.height}"
+        width="${fields.file.details.image.width}"
+        alt="${fields.description}"
+      />
+    </div>`;
+  } catch (err) {
+    console.error(err);
+    return `<div class="brick">Problem encountered: ${err}</div>`;
+  }
+}
 
 async function renderProjectsSection() {
   if (!projects) {
